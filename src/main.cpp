@@ -4,7 +4,6 @@
 
 using namespace geode::prelude;
 
-static constexpr float BULK_BUTTON_X = 285.f;
 static constexpr float BULK_BUTTON_Y = 30.f;
 static constexpr float INFO_LABEL_Y = 22.f;
 static constexpr const char* STAT_DEMON_KEYS = "21";
@@ -69,13 +68,13 @@ class $modify(BulkChestLayer, SecretRewardsLayer) {
 
         m_fields->bulkOpenMenu = CCMenu::create();
         m_fields->bulkOpenMenu->addChild(bulkButton);
-        m_fields->bulkOpenMenu->setPosition({BULK_BUTTON_X, BULK_BUTTON_Y});
+        m_fields->bulkOpenMenu->setPosition({CCScene::get()->getContentWidth() / 2.f, BULK_BUTTON_Y});
         m_fields->bulkOpenMenu->setVisible(false);
         this->addChild(m_fields->bulkOpenMenu, 100);
 
         auto infoLabel = CCLabelBMFont::create("Shift+Click to select chests", "chatFont.fnt");
         infoLabel->setScale(0.4f);
-        infoLabel->setPosition({BULK_BUTTON_X, INFO_LABEL_Y});
+        infoLabel->setPosition({CCScene::get()->getContentWidth() / 2.f, INFO_LABEL_Y});
         infoLabel->setColor({180, 180, 180});
         infoLabel->setID("bulk-info-label"_spr);
         this->addChild(infoLabel, 100);
