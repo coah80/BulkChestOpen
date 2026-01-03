@@ -4,8 +4,6 @@
 
 using namespace geode::prelude;
 
-static constexpr float BULK_BUTTON_Y = 30.f;
-static constexpr float INFO_LABEL_Y = 22.f;
 static constexpr const char* STAT_DEMON_KEYS = "21";
 static constexpr int REWARD_LAYER_TAG = 9999;
 
@@ -15,6 +13,7 @@ class $modify(BulkChestLayer, SecretRewardsLayer) {
         std::vector<int> selectedChests;
         std::map<int, CCMenuItemSpriteExtra*> chestButtons;
         CCMenu* bulkOpenMenu = nullptr;
+        CCLabelBMFont* infoLabel = nullptr;
 
         int totalOrbs = 0;
         int totalDiamonds = 0;
@@ -27,8 +26,12 @@ class $modify(BulkChestLayer, SecretRewardsLayer) {
     };
 
     void updateBulkButton() {
+        bool hasSelection = !m_fields->selectedChests.empty();
         if (m_fields->bulkOpenMenu) {
-            m_fields->bulkOpenMenu->setVisible(!m_fields->selectedChests.empty());
+            m_fields->bulkOpenMenu->setVisible(hasSelection);
+        }
+        if (m_fields->infoLabel) {
+            m_fields->infoLabel->setVisible(!hasSelection);
         }
     }
 
@@ -66,18 +69,20 @@ class $modify(BulkChestLayer, SecretRewardsLayer) {
         auto bulkButton = CCMenuItemSpriteExtra::create(bulkSprite, this, menu_selector(BulkChestLayer::onBulkOpen));
         bulkButton->setID("bulk-open-btn"_spr);
 
+        auto winSize = CCScene::get()->getContentSize();
+
         m_fields->bulkOpenMenu = CCMenu::create();
         m_fields->bulkOpenMenu->addChild(bulkButton);
-        m_fields->bulkOpenMenu->setPosition({CCScene::get()->getContentWidth() / 2.f, BULK_BUTTON_Y});
+        m_fields->bulkOpenMenu->setPosition({winSize.width / 2.f, winSize.height * 0.1f});
         m_fields->bulkOpenMenu->setVisible(false);
         this->addChild(m_fields->bulkOpenMenu, 100);
 
-        auto infoLabel = CCLabelBMFont::create("Shift+Click to select chests", "chatFont.fnt");
-        infoLabel->setScale(0.4f);
-        infoLabel->setPosition({CCScene::get()->getContentWidth() / 2.f, INFO_LABEL_Y});
-        infoLabel->setColor({180, 180, 180});
-        infoLabel->setID("bulk-info-label"_spr);
-        this->addChild(infoLabel, 100);
+        m_fields->infoLabel = CCLabelBMFont::create("Shift+Click to select chests", "chatFont.fnt");
+        m_fields->infoLabel->setScale(0.4f);
+        m_fields->infoLabel->setPosition({winSize.width / 2.f, winSize.height * 0.07f});
+        m_fields->infoLabel->setColor({180, 180, 180});
+        m_fields->infoLabel->setID("bulk-info-label"_spr);
+        this->addChild(m_fields->infoLabel, 100);
 
         return true;
     }
