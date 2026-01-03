@@ -2,16 +2,15 @@
   "geode": "4.10.0",
   "gd": {
     "win": "*",
-    "mac": "*",
-    "android": "*"
+    "mac": "*"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "id": "coah.bulkchestopen",
   "name": "Bulk Chest Open",
   "developer": "coah",
   "description": "Open multiple demon chests at once! Shift+Click to select chests, then bulk open them all with a single click.",
   "links": {
-    "source": "https://github.com/coah/bulkchestopen"
+    "source": "https://github.com/coah80/bulkchestopen"
   },
   "tags": ["utility", "gameplay"]
 }
