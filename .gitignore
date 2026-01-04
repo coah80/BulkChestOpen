@@ -3,4 +3,6 @@ build/
 .vs/
 .vscode/
 *.user
+.github/copilot-instructions.md
+CMakeUserPresets.json
 
